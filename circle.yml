@@ -1,0 +1,8 @@
+dependencies:
+  override:
+    - mkdir -p "${GOPATH}/src/go.pedge.io/flights"
+    - rsync -azC --delete ./ "${GOPATH}/src/go.pedge.io/flights/"
+    - make -C "${GOPATH}/src/go.pedge.io/flights" testdeps
+test:
+  override:
+    - make -C "${GOPATH}/src/go.pedge.io/flights" test
