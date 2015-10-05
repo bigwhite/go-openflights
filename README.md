@@ -11,6 +11,14 @@ to support their work.
 
 ## Introduction
 
+Note the custom import path!
+
+```go
+import (
+  "go.pedge.io/flights"
+)
+```
+
 Flights is a package that aims to eventually expose APIs for all kinds of flights data. At the moment,
 it exposes the data from http://openflights.org/data.html, available within https://github.com/jpatokal/openflights/tree/master/data.
 
