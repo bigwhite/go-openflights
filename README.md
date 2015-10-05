@@ -25,7 +25,7 @@ this Docker image with the default ports set. Then, you can `curl http://0.0.0.0
 The flights package for golang adds some golang-specific additional functionality around the generated protocol buffers code.
 See [flights.go](flights.go) for publically-exposed structures.
 
-The binaries [gen-flights-csv-store](cmd/gen-flights-csv-store) and [gen-flights-id-store](gen-flights-id-store) will generate
+The binaries [gen-flights-csv-store](cmd/gen-flights-csv-store) and [gen-flights-id-store](cmd/gen-flights-id-store) will generate
 the data for you in either a `CSVStore` or `IDStore`. Note that this is how [generated.go](generated.go) is generated.
 
 ## Future Work
