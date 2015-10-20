@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/peter-edge/go-flights/tree/master.png)](https://circleci.com/gh/peter-edge/go-flights/tree/master)
-[![API Documentation](http://img.shields.io/badge/api-Godoc-blue.svg?style=flat-square)](https://godoc.org/go.pedge.io/flights)
-[![GitHub License](https://img.shields.io/github/license/peter-edge/go-flights.svg?style=flat-square)](https://github.com/peter-edge/go-flights/blob/master/LICENSE)
+[![GoDoc](http://img.shields.io/badge/api-godoc-blue.svg)](https://godoc.org/go.pedge.io/flights)
+[![MIT License](http://img.shields.io/badge/license-mit-blue.svg)](https://github.com/peter-edge/go-flights/blob/master/LICENSE)
 
 ### Please donate to OpenFlights!
 
