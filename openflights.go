@@ -71,7 +71,7 @@ func NewLocalAPIClient(apiServer APIServer) APIClient {
 
 // NewAPIServer creates a new APIServer using the given Client.
 func NewAPIServer(client Client) APIServer {
-	return newAPIServer(client)
+	return newLogAPIServer(newAPIServer(client))
 }
 
 // NewServerClient creates a new server-side Client.
