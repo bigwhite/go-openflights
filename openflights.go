@@ -29,9 +29,14 @@ type CodeStore struct {
 	AirlineCodeToSourceAirportCodeToDestinationAirportCodeToRoutes map[string]map[string]map[string][]*Route
 }
 
+// CodeStoreOptions are options for a CodeStore.
+type CodeStoreOptions struct {
+	NoFilterDuplicates bool
+}
+
 // NewCodeStore creates a new CodeStore from an IDStore.
-func NewCodeStore(idStore *IDStore) (*CodeStore, error) {
-	return newCodeStore(idStore)
+func NewCodeStore(idStore *IDStore, options CodeStoreOptions) (*CodeStore, error) {
+	return newCodeStore(idStore, options)
 }
 
 // IDClient is the client to interface with flights data by ID.
@@ -75,8 +80,8 @@ func NewAPIServer(client Client) APIServer {
 }
 
 // NewServerClient creates a new server-side Client.
-func NewServerClient(idStore *IDStore) (Client, error) {
-	codeStore, err := newCodeStore(idStore)
+func NewServerClient(idStore *IDStore, options CodeStoreOptions) (Client, error) {
+	codeStore, err := newCodeStore(idStore, options)
 	if err != nil {
 		return nil, err
 	}
@@ -89,5 +94,5 @@ func NewDefaultServerClient() (Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewServerClient(idStore)
+	return NewServerClient(idStore, CodeStoreOptions{NoFilterDuplicates: true})
 }
