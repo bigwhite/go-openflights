@@ -77,7 +77,7 @@ func TestGetDistanceByCode(t *testing.T) {
 func getTestClient(t *testing.T) Client {
 	idStore, err := NewIDStore(_GlobalCSVStore)
 	require.NoError(t, err)
-	serverClient, err := NewServerClient(idStore, CodeStoreOptions{NoFilterDuplicates: true})
+	serverClient, err := NewServerClient(idStore, CodeStoreOptions{NoErrorOnDuplicates: true})
 	require.NoError(t, err)
 	// normally in Go code you would directly call the Client,
 	// but for testing I want to go through the whole chain.

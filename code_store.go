@@ -58,17 +58,27 @@ func (c *CodeStore) GetDistanceByCode(sourceAirportCode string, destinationAirpo
 func getAirportMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airport, error) {
 	m := make(map[string]*Airport)
 	for _, airport := range idStore.IdToAirport {
-		if !options.NoFilterDuplicates && !includeAirport(airport) {
-			continue
+		if !options.NoFilterDuplicates {
+			include, err := includeAirport(airport)
+			if err != nil {
+				return nil, err
+			}
+			if !include {
+				continue
+			}
 		}
-		for _, s := range []string{airport.IataFaa, airport.Icao} {
+		codes := []string{airport.IataFaa, airport.Icao}
+		if airport.IataFaa == airport.Icao {
+			codes = []string{airport.IataFaa}
+		}
+		for _, s := range codes {
 			if s == "" {
 				continue
 			}
 			// TODO(pedge): does not handle duplicates
 			if _, ok := m[strings.ToLower(s)]; ok {
 				err := fmt.Errorf("openflights: duplicate airport key: %s", s)
-				if options.NoFilterDuplicates {
+				if options.NoFilterDuplicates || options.NoErrorOnDuplicates {
 					protolog.Warnln(err.Error())
 				} else {
 					return nil, err
@@ -83,8 +93,14 @@ func getAirportMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airp
 func getAirlineMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airline, error) {
 	m := make(map[string]*Airline)
 	for _, airline := range idStore.IdToAirline {
-		if !options.NoFilterDuplicates && !includeAirline(airline) {
-			continue
+		if !options.NoFilterDuplicates {
+			include, err := includeAirline(airline)
+			if err != nil {
+				return nil, err
+			}
+			if !include {
+				continue
+			}
 		}
 		for _, s := range []string{airline.Iata, airline.Icao} {
 			if s == "" {
@@ -93,7 +109,7 @@ func getAirlineMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airl
 			// TODO(pedge): does not handle duplicates
 			if _, ok := m[strings.ToLower(s)]; ok {
 				err := fmt.Errorf("openflights: duplicate airline key: %s", s)
-				if options.NoFilterDuplicates {
+				if options.NoFilterDuplicates || options.NoErrorOnDuplicates {
 					protolog.Warnln(err.Error())
 				} else {
 					return nil, err
@@ -108,8 +124,14 @@ func getAirlineMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airl
 func getRoutesMap(idStore *IDStore, options CodeStoreOptions) (map[string]map[string]map[string][]*Route, error) {
 	m := make(map[string]map[string]map[string][]*Route)
 	for _, route := range idStore.IdToRoute {
-		if !options.NoFilterDuplicates && !includeRoute(route) {
-			continue
+		if !options.NoFilterDuplicates {
+			include, err := includeRoute(route)
+			if err != nil {
+				return nil, err
+			}
+			if !include {
+				continue
+			}
 		}
 		for _, airline := range []string{route.Airline.Iata, route.Airline.Icao} {
 			for _, source := range []string{route.SourceAirport.IataFaa, route.SourceAirport.Icao} {

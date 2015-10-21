@@ -31,7 +31,10 @@ type CodeStore struct {
 
 // CodeStoreOptions are options for a CodeStore.
 type CodeStoreOptions struct {
+	// if set, duplicates will not be filtered
 	NoFilterDuplicates bool
+	// if set, an error will not be returned on a duplicate
+	NoErrorOnDuplicates bool
 }
 
 // NewCodeStore creates a new CodeStore from an IDStore.
@@ -94,5 +97,5 @@ func NewDefaultServerClient() (Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewServerClient(idStore, CodeStoreOptions{NoFilterDuplicates: true})
+	return NewServerClient(idStore, CodeStoreOptions{NoErrorOnDuplicates: true})
 }
