@@ -47,9 +47,9 @@ func getMetadata(pkg string, data interface{}) *metadata {
 		Package: pkg,
 		Data:    data,
 	}
-	if pkg != "flights" {
-		metadata.Import = "\n import \"go.pedge.io/flights\""
-		metadata.PackagePrefix = "flights."
+	if pkg != "openflights" {
+		metadata.Import = "\n import \"go.pedge.io/openflights\""
+		metadata.PackagePrefix = "openflights."
 	} else {
 		metadata.Private = true
 	}
