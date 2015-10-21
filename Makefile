@@ -17,7 +17,8 @@
 	docker-build-openflights-dev \
 	docker-build-openflightsd-internal \
 	docker-build-openflightsd \
-	launch
+	launch \
+	launch-local
 
 all: test
 
@@ -90,3 +91,6 @@ docker-build-openflightsd: docker-build-openflights-dev
 
 launch: docker-build-openflightsd
 	docker run -d -p 1747:1747 -p 8080:8080 pedge/openflightsd
+
+launch-local: deps
+	go run cmd/openflightsd/main.go
