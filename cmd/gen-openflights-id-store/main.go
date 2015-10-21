@@ -5,8 +5,8 @@ import (
 	"os"
 	"text/template"
 
-	"go.pedge.io/flights"
-	"go.pedge.io/flights/cmd/internal/common"
+	"go.pedge.io/openflights"
+	"go.pedge.io/openflights/cmd/internal/common"
 )
 
 var (

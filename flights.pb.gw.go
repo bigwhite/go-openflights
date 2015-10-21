@@ -2,7 +2,7 @@
 // source: flights.proto
 // DO NOT EDIT!
 
-package flights
+package openflights
 
 import (
 	"encoding/json"

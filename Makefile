@@ -65,7 +65,7 @@ clean:
 
 proto:
 	go get -v go.pedge.io/tools/protoc-all
-	STRIP_PACKAGE_COMMENTS=1 protoc-all go.pedge.io/flights
+	STRIP_PACKAGE_COMMENTS=1 protoc-all go.pedge.io/openflights
 
 generate:
 	go run cmd/gen-flights-csv-store/main.go flights generated.go

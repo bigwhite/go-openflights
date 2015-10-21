@@ -2,7 +2,7 @@
 // source: flights.proto
 // DO NOT EDIT!
 
-package flights
+package openflights
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
@@ -116,7 +116,7 @@ type Airport struct {
 	LongitudeMicros       int32  `protobuf:"zigzag32,8,opt,name=longitude_micros" json:"longitude_micros,omitempty"`
 	AltitudeFeet          uint32 `protobuf:"varint,9,opt,name=altitude_feet" json:"altitude_feet,omitempty"`
 	TimezoneOffsetMinutes int32  `protobuf:"zigzag32,10,opt,name=timezone_offset_minutes" json:"timezone_offset_minutes,omitempty"`
-	Dst                   DST    `protobuf:"varint,11,opt,name=dst,enum=flights.DST" json:"dst,omitempty"`
+	Dst                   DST    `protobuf:"varint,11,opt,name=dst,enum=openflights.DST" json:"dst,omitempty"`
 	Timezone              string `protobuf:"bytes,12,opt,name=timezone" json:"timezone,omitempty"`
 }
 
@@ -292,7 +292,7 @@ func (m *GetDistanceByCodeRequest) String() string { return proto.CompactTextStr
 func (*GetDistanceByCodeRequest) ProtoMessage()    {}
 
 func init() {
-	proto.RegisterEnum("flights.DST", DST_name, DST_value)
+	proto.RegisterEnum("openflights.DST", DST_name, DST_value)
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -325,7 +325,7 @@ func NewAPIClient(cc *grpc.ClientConn) APIClient {
 
 func (c *aPIClient) GetAllAirports(ctx context.Context, in *google_protobuf1.Empty, opts ...grpc.CallOption) (*Airports, error) {
 	out := new(Airports)
-	err := grpc.Invoke(ctx, "/flights.API/GetAllAirports", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetAllAirports", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +334,7 @@ func (c *aPIClient) GetAllAirports(ctx context.Context, in *google_protobuf1.Emp
 
 func (c *aPIClient) GetAllAirlines(ctx context.Context, in *google_protobuf1.Empty, opts ...grpc.CallOption) (*Airlines, error) {
 	out := new(Airlines)
-	err := grpc.Invoke(ctx, "/flights.API/GetAllAirlines", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetAllAirlines", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +343,7 @@ func (c *aPIClient) GetAllAirlines(ctx context.Context, in *google_protobuf1.Emp
 
 func (c *aPIClient) GetAllRoutes(ctx context.Context, in *google_protobuf1.Empty, opts ...grpc.CallOption) (*Routes, error) {
 	out := new(Routes)
-	err := grpc.Invoke(ctx, "/flights.API/GetAllRoutes", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetAllRoutes", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -352,7 +352,7 @@ func (c *aPIClient) GetAllRoutes(ctx context.Context, in *google_protobuf1.Empty
 
 func (c *aPIClient) GetAirportByID(ctx context.Context, in *GetAirportByIDRequest, opts ...grpc.CallOption) (*Airport, error) {
 	out := new(Airport)
-	err := grpc.Invoke(ctx, "/flights.API/GetAirportByID", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetAirportByID", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -361,7 +361,7 @@ func (c *aPIClient) GetAirportByID(ctx context.Context, in *GetAirportByIDReques
 
 func (c *aPIClient) GetAirlineByID(ctx context.Context, in *GetAirlineByIDRequest, opts ...grpc.CallOption) (*Airline, error) {
 	out := new(Airline)
-	err := grpc.Invoke(ctx, "/flights.API/GetAirlineByID", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetAirlineByID", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +370,7 @@ func (c *aPIClient) GetAirlineByID(ctx context.Context, in *GetAirlineByIDReques
 
 func (c *aPIClient) GetRouteByID(ctx context.Context, in *GetRouteByIDRequest, opts ...grpc.CallOption) (*Route, error) {
 	out := new(Route)
-	err := grpc.Invoke(ctx, "/flights.API/GetRouteByID", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetRouteByID", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -379,7 +379,7 @@ func (c *aPIClient) GetRouteByID(ctx context.Context, in *GetRouteByIDRequest, o
 
 func (c *aPIClient) GetDistanceByID(ctx context.Context, in *GetDistanceByIDRequest, opts ...grpc.CallOption) (*google_protobuf2.UInt32Value, error) {
 	out := new(google_protobuf2.UInt32Value)
-	err := grpc.Invoke(ctx, "/flights.API/GetDistanceByID", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetDistanceByID", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -388,7 +388,7 @@ func (c *aPIClient) GetDistanceByID(ctx context.Context, in *GetDistanceByIDRequ
 
 func (c *aPIClient) GetAirportByCode(ctx context.Context, in *GetAirportByCodeRequest, opts ...grpc.CallOption) (*Airport, error) {
 	out := new(Airport)
-	err := grpc.Invoke(ctx, "/flights.API/GetAirportByCode", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetAirportByCode", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -397,7 +397,7 @@ func (c *aPIClient) GetAirportByCode(ctx context.Context, in *GetAirportByCodeRe
 
 func (c *aPIClient) GetAirlineByCode(ctx context.Context, in *GetAirlineByCodeRequest, opts ...grpc.CallOption) (*Airline, error) {
 	out := new(Airline)
-	err := grpc.Invoke(ctx, "/flights.API/GetAirlineByCode", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetAirlineByCode", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -406,7 +406,7 @@ func (c *aPIClient) GetAirlineByCode(ctx context.Context, in *GetAirlineByCodeRe
 
 func (c *aPIClient) GetRoutesByCode(ctx context.Context, in *GetRoutesByCodeRequest, opts ...grpc.CallOption) (*Routes, error) {
 	out := new(Routes)
-	err := grpc.Invoke(ctx, "/flights.API/GetRoutesByCode", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetRoutesByCode", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -415,7 +415,7 @@ func (c *aPIClient) GetRoutesByCode(ctx context.Context, in *GetRoutesByCodeRequ
 
 func (c *aPIClient) GetDistanceByCode(ctx context.Context, in *GetDistanceByCodeRequest, opts ...grpc.CallOption) (*google_protobuf2.UInt32Value, error) {
 	out := new(google_protobuf2.UInt32Value)
-	err := grpc.Invoke(ctx, "/flights.API/GetDistanceByCode", in, out, c.cc, opts...)
+	err := grpc.Invoke(ctx, "/openflights.API/GetDistanceByCode", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -575,7 +575,7 @@ func _API_GetDistanceByCode_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _API_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "flights.API",
+	ServiceName: "openflights.API",
 	HandlerType: (*APIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -1,4 +1,4 @@
-package flights
+package openflights
 
 import (
 	"go.pedge.io/google-protobuf"

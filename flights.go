@@ -1,7 +1,7 @@
 /*
 Package flights exposes various flight data.
 */
-package flights // import "go.pedge.io/flights"
+package openflights // import "go.pedge.io/openflights"
 
 // GetCSVStore gets the CSVStore from GitHub.
 func GetCSVStore() (*CSVStore, error) {

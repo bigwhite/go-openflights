@@ -1,4 +1,4 @@
-package flights
+package openflights
 
 type serverClient struct {
 	*IDStore

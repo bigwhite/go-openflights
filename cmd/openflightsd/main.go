@@ -4,7 +4,7 @@ import (
 	"golang.org/x/net/context"
 
 	"go.pedge.io/env"
-	"go.pedge.io/flights"
+	"go.pedge.io/openflights"
 	"go.pedge.io/proto/server"
 
 	"github.com/gengo/grpc-gateway/runtime"

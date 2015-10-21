@@ -1,5 +1,5 @@
 [![CircleCI](https://circleci.com/gh/peter-edge/go-flights/tree/master.png)](https://circleci.com/gh/peter-edge/go-flights/tree/master)
-[![GoDoc](http://img.shields.io/badge/GoDoc-Reference-blue.svg)](https://godoc.org/go.pedge.io/flights)
+[![GoDoc](http://img.shields.io/badge/GoDoc-Reference-blue.svg)](https://godoc.org/go.pedge.io/openflights)
 [![MIT License](http://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/peter-edge/go-flights/blob/master/LICENSE)
 
 ### Please donate to OpenFlights!
@@ -15,7 +15,7 @@ Note the custom import path!
 
 ```go
 import (
-  "go.pedge.io/flights"
+  "go.pedge.io/openflights"
 )
 ```
 

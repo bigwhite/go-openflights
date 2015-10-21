@@ -1,4 +1,4 @@
-package flights
+package openflights
 
 import "golang.org/x/net/context"
 
