@@ -68,7 +68,6 @@ func getAirportMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airp
 			}
 		}
 		for _, s := range airport.Codes() {
-			// TODO(pedge): does not handle duplicates
 			if _, ok := m[strings.ToLower(s)]; ok {
 				err := fmt.Errorf("openflights: duplicate airport key: %s", s)
 				if options.NoFilterDuplicates || options.NoErrorOnDuplicates {
@@ -97,7 +96,6 @@ func getAirlineMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airl
 			}
 		}
 		for _, s := range airline.Codes() {
-			// TODO(pedge): does not handle duplicates
 			if _, ok := m[strings.ToLower(s)]; ok {
 				err := fmt.Errorf("openflights: duplicate airline key: %s", s)
 				if options.NoFilterDuplicates || options.NoErrorOnDuplicates {
