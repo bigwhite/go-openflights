@@ -67,14 +67,7 @@ func getAirportMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airp
 				continue
 			}
 		}
-		codes := []string{airport.IataFaa, airport.Icao}
-		if airport.IataFaa == airport.Icao {
-			codes = []string{airport.IataFaa}
-		}
-		for _, s := range codes {
-			if s == "" {
-				continue
-			}
+		for _, s := range airport.Codes() {
 			// TODO(pedge): does not handle duplicates
 			if _, ok := m[strings.ToLower(s)]; ok {
 				err := fmt.Errorf("openflights: duplicate airport key: %s", s)
@@ -91,10 +84,11 @@ func getAirportMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airp
 }
 
 func getAirlineMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airline, error) {
+	airlineCodeToAirlineIDToRouteIDs := getAirlineCodeToAirlineIDToRouteIDs(idStore.IdToRoute)
 	m := make(map[string]*Airline)
 	for _, airline := range idStore.IdToAirline {
 		if !options.NoFilterDuplicates {
-			include, err := includeAirline(airline)
+			include, err := includeAirline(airline, airlineCodeToAirlineIDToRouteIDs)
 			if err != nil {
 				return nil, err
 			}
@@ -102,10 +96,7 @@ func getAirlineMap(idStore *IDStore, options CodeStoreOptions) (map[string]*Airl
 				continue
 			}
 		}
-		for _, s := range []string{airline.Iata, airline.Icao} {
-			if s == "" {
-				continue
-			}
+		for _, s := range airline.Codes() {
 			// TODO(pedge): does not handle duplicates
 			if _, ok := m[strings.ToLower(s)]; ok {
 				err := fmt.Errorf("openflights: duplicate airline key: %s", s)
@@ -133,12 +124,9 @@ func getRoutesMap(idStore *IDStore, options CodeStoreOptions) (map[string]map[st
 				continue
 			}
 		}
-		for _, airline := range []string{route.Airline.Iata, route.Airline.Icao} {
-			for _, source := range []string{route.SourceAirport.IataFaa, route.SourceAirport.Icao} {
-				for _, dest := range []string{route.DestinationAirport.IataFaa, route.DestinationAirport.Icao} {
-					if airline == "" || source == "" || dest == "" {
-						continue
-					}
+		for _, airline := range route.Airline.Codes() {
+			for _, source := range route.SourceAirport.Codes() {
+				for _, dest := range route.DestinationAirport.Codes() {
 					airline = strings.ToLower(airline)
 					source = strings.ToLower(source)
 					dest = strings.ToLower(dest)

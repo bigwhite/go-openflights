@@ -99,3 +99,37 @@ func NewDefaultServerClient() (Client, error) {
 	}
 	return NewServerClient(idStore, CodeStoreOptions{NoErrorOnDuplicates: true})
 }
+
+// Codes returns the airport codes.
+func (airport *Airport) Codes() []string {
+	if airport.IataFaa == airport.Icao {
+		if airport.IataFaa == "" {
+			return []string{}
+		}
+		return []string{airport.IataFaa}
+	}
+	if airport.IataFaa == "" {
+		return []string{airport.Icao}
+	}
+	if airport.Icao == "" {
+		return []string{airport.IataFaa}
+	}
+	return []string{airport.IataFaa, airport.Icao}
+}
+
+// Codes returns the airline codes.
+func (airline *Airline) Codes() []string {
+	if airline.Iata == airline.Icao {
+		if airline.Iata == "" {
+			return []string{}
+		}
+		return []string{airline.Iata}
+	}
+	if airline.Iata == "" {
+		return []string{airline.Icao}
+	}
+	if airline.Icao == "" {
+		return []string{airline.Iata}
+	}
+	return []string{airline.Iata, airline.Icao}
+}
