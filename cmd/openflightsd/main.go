@@ -30,20 +30,20 @@ func main() {
 
 func do(appEnvObj interface{}) error {
 	appEnv := appEnvObj.(*appEnv)
-	client, err := flights.NewDefaultServerClient()
+	client, err := openflights.NewDefaultServerClient()
 	if err != nil {
 		return err
 	}
 	return protoserver.Serve(
 		uint16(appEnv.Port),
 		func(s *grpc.Server) {
-			flights.RegisterAPIServer(s, flights.NewAPIServer(client))
+			openflights.RegisterAPIServer(s, openflights.NewAPIServer(client))
 		},
 		protoserver.ServeOptions{
 			HTTPPort:  uint16(appEnv.HTTPPort),
 			DebugPort: uint16(appEnv.DebugPort),
 			HTTPRegisterFunc: func(ctx context.Context, mux *runtime.ServeMux, clientConn *grpc.ClientConn) error {
-				return flights.RegisterAPIHandler(ctx, mux, clientConn)
+				return openflights.RegisterAPIHandler(ctx, mux, clientConn)
 			},
 		},
 	)

@@ -1,5 +1,11 @@
 /*
-Package flights exposes various flight data.
+Package openflights exposes various flight data from OpenFlights.org.
+
+
+If you do use this package, I ask you to donate to OpenFlights, the source for all the data
+in here as of now, at http://openflights.org/donate. Seriously, if you can afford it, the OpenFlights
+team is responsible for putting all this data together and maintaining it, and we owe it to them
+to support their work.
 */
 package openflights // import "go.pedge.io/openflights"
 

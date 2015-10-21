@@ -128,5 +128,5 @@ func (a *apiServer) GetDistanceByCode(_ context.Context, request *GetDistanceByC
 }
 
 func (a *apiServer) log(methodName string, request proto.Message, response proto.Message, err error, start time.Time) {
-	protorpclog.Info("flights.API", methodName, request, response, err, time.Since(start))
+	protorpclog.Info("openflights.API", methodName, request, response, err, time.Since(start))
 }

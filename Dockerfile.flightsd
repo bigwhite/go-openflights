@@ -1,5 +1,0 @@
-FROM scratch
-MAINTAINER peter.edge@gmail.com
-
-ADD _tmp/flightsd /
-ENTRYPOINT ["/flightsd"]

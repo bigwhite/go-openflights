@@ -14,9 +14,9 @@
 	clean \
 	proto \
 	generate \
-	docker-build-flights-dev \
-	docker-build-flightsd-internal \
-	docker-build-flightsd \
+	docker-build-openflights-dev \
+	docker-build-openflightsd-internal \
+	docker-build-openflightsd \
 	launch
 
 all: test
@@ -68,12 +68,12 @@ proto:
 	STRIP_PACKAGE_COMMENTS=1 protoc-all go.pedge.io/openflights
 
 generate:
-	go run cmd/gen-flights-csv-store/main.go flights generated.go
+	go run cmd/gen-openflights-csv-store/main.go openflights generated.go
 
-docker-build-flights-dev:
-	docker build -t pedge/flights-dev -f Dockerfile.flights-dev .
+docker-build-openflights-dev:
+	docker build -t pedge/openflights-dev -f Dockerfile.openflights-dev .
 
-docker-build-flightsd-internal: deps
+docker-build-openflightsd-internal: deps
 	rm -rf _tmp
 	mkdir -p _tmp
 	go build \
@@ -81,12 +81,12 @@ docker-build-flightsd-internal: deps
 		-installsuffix netgo \
 		-tags netgo \
 		-ldflags '-w -linkmode external -extldflags "-static"' \
-		-o _tmp/flightsd \
-		cmd/flightsd/main.go
-	docker build -t pedge/flightsd -f Dockerfile.flightsd .
+		-o _tmp/openflightsd \
+		cmd/openflightsd/main.go
+	docker build -t pedge/openflightsd -f Dockerfile.openflightsd .
 
-docker-build-flightsd: docker-build-flights-dev
-	docker run -v /var/run/docker.sock:/var/run/docker.sock pedge/flights-dev make docker-build-flightsd-internal
+docker-build-openflightsd: docker-build-openflights-dev
+	docker run -v /var/run/docker.sock:/var/run/docker.sock pedge/openflights-dev make docker-build-openflightsd-internal
 
-launch: docker-build-flightsd
-	docker run -d -p 1747:1747 -p 8080:8080 pedge/flightsd
+launch: docker-build-openflightsd
+	docker run -d -p 1747:1747 -p 8080:8080 pedge/openflightsd
