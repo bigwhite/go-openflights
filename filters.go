@@ -16,6 +16,9 @@ var (
 		"7708": "ZYA",
 		"8420": "EDDB",
 	}
+	filterAirlineIDToAirlineCode = map[string]string{
+		"2883": "ZA",
+	}
 )
 
 func includeAirport(airport *Airport) (bool, error) {
@@ -31,6 +34,13 @@ func includeAirport(airport *Airport) (bool, error) {
 
 func includeAirline(airline *Airline, airlineCodeToAirlineIDToRouteIDs map[string]map[string]map[string]bool) (bool, error) {
 	if !airline.Active {
+		return false, nil
+	}
+	airlineCode, ok := filterAirlineIDToAirlineCode[airline.Id]
+	if ok {
+		if airline.Iata != airlineCode && airline.Icao != airlineCode {
+			return false, fmt.Errorf("openflights: expected airline %v to have code %s", airline, airlineCode)
+		}
 		return false, nil
 	}
 	for _, code := range airline.Codes() {
