@@ -97,7 +97,7 @@ func NewDefaultServerClient() (Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewServerClient(idStore, CodeStoreOptions{NoErrorOnDuplicates: true})
+	return NewServerClient(idStore, CodeStoreOptions{})
 }
 
 // Codes returns the airport codes.

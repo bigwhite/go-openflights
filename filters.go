@@ -18,6 +18,18 @@ var (
 	}
 	filterAirlineIDToAirlineCode = map[string]string{
 		"2883": "ZA",
+		"5424": "WA",
+		"2439": "VY",
+		"2051": "5D",
+		"5533": "TYR",
+		"1883": "CO",
+		"1879": "C3",
+		"2805": "C3",
+		"1615": "CP",
+	}
+	// TODO(pedge): deal with the airlines not selected
+	selectAirlineCodeToAirlineID = map[string]string{
+		"1I": "3641",
 	}
 )
 
@@ -33,6 +45,12 @@ func includeAirport(airport *Airport) (bool, error) {
 }
 
 func includeAirline(airline *Airline, airlineCodeToAirlineIDToRouteIDs map[string]map[string]map[string]bool) (bool, error) {
+	for _, code := range airline.Codes() {
+		airlineID, ok := selectAirlineCodeToAirlineID[code]
+		if ok {
+			return airlineID == airline.Id, nil
+		}
+	}
 	if !airline.Active {
 		return false, nil
 	}

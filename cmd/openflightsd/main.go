@@ -6,6 +6,7 @@ import (
 	"go.pedge.io/env"
 	"go.pedge.io/openflights"
 	"go.pedge.io/proto/server"
+	"go.pedge.io/protolog"
 
 	"github.com/gengo/grpc-gateway/runtime"
 	"google.golang.org/grpc"
@@ -19,9 +20,10 @@ var (
 )
 
 type appEnv struct {
-	Port      int `env:"PORT"`
-	HTTPPort  int `env:"HTTP_PORT"`
-	DebugPort int `env:"DEBUG_PORT"`
+	Port      int  `env:"PORT"`
+	HTTPPort  int  `env:"HTTP_PORT"`
+	DebugPort int  `env:"DEBUG_PORT"`
+	DebugLog  bool `env:"DEBUG_LOG"`
 }
 
 func main() {
@@ -30,6 +32,9 @@ func main() {
 
 func do(appEnvObj interface{}) error {
 	appEnv := appEnvObj.(*appEnv)
+	if appEnv.DebugLog {
+		protolog.SetLevel(protolog.Level_LEVEL_DEBUG)
+	}
 	client, err := openflights.NewDefaultServerClient()
 	if err != nil {
 		return err
