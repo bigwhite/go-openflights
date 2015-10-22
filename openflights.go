@@ -9,6 +9,18 @@ to support their work.
 */
 package openflights // import "go.pedge.io/openflights"
 
+import "go.pedge.io/proto/version"
+
+var (
+	// Version is the version of this package.
+	Version = &protoversion.Version{
+		Major:      0,
+		Minor:      1,
+		Micro:      0,
+		Additional: "dev",
+	}
+)
+
 // GetCSVStore gets the CSVStore from GitHub.
 func GetCSVStore() (*CSVStore, error) {
 	return getCSVStore()

@@ -1,14 +1,13 @@
 package main
 
 import (
-	"golang.org/x/net/context"
+	"os"
 
 	"go.pedge.io/env"
 	"go.pedge.io/openflights"
+	"go.pedge.io/pkg/log"
 	"go.pedge.io/proto/server"
-	"go.pedge.io/protolog"
 
-	"github.com/gengo/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 )
 
@@ -20,10 +19,10 @@ var (
 )
 
 type appEnv struct {
-	Port      int  `env:"PORT"`
-	HTTPPort  int  `env:"HTTP_PORT"`
-	DebugPort int  `env:"DEBUG_PORT"`
-	DebugLog  bool `env:"DEBUG_LOG"`
+	Port      uint16 `env:"PORT"`
+	HTTPPort  uint16 `env:"HTTP_PORT"`
+	DebugPort uint16 `env:"DEBUG_PORT"`
+	LogEnv    pkglog.Env
 }
 
 func main() {
@@ -32,24 +31,21 @@ func main() {
 
 func do(appEnvObj interface{}) error {
 	appEnv := appEnvObj.(*appEnv)
-	if appEnv.DebugLog {
-		protolog.SetLevel(protolog.Level_LEVEL_DEBUG)
-	}
+	pkglog.SetupLogging(os.Args[0], appEnv.LogEnv)
 	client, err := openflights.NewDefaultServerClient()
 	if err != nil {
 		return err
 	}
 	return protoserver.Serve(
-		uint16(appEnv.Port),
+		appEnv.Port,
 		func(s *grpc.Server) {
 			openflights.RegisterAPIServer(s, openflights.NewAPIServer(client))
 		},
 		protoserver.ServeOptions{
-			HTTPPort:  uint16(appEnv.HTTPPort),
-			DebugPort: uint16(appEnv.DebugPort),
-			HTTPRegisterFunc: func(ctx context.Context, mux *runtime.ServeMux, clientConn *grpc.ClientConn) error {
-				return openflights.RegisterAPIHandler(ctx, mux, clientConn)
-			},
+			HTTPPort:         appEnv.HTTPPort,
+			DebugPort:        appEnv.DebugPort,
+			HTTPRegisterFunc: openflights.RegisterAPIHandler,
+			Version:          openflights.Version,
 		},
 	)
 }

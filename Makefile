@@ -1,5 +1,6 @@
 .PHONY: \
 	all \
+	version \
 	deps \
 	updatedeps \
 	testdeps \
@@ -21,6 +22,10 @@
 	launch-local
 
 all: test
+
+version:
+	@echo 'package main; import "go.pedge.io/openflights"; func main() { openflights.Version.Println() }' > /tmp/openflights_version.go
+	@go run /tmp/openflights_version.go
 
 deps:
 	go get -d -v ./...
