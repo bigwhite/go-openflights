@@ -11,22 +11,15 @@ import (
 	"google.golang.org/grpc"
 )
 
-var (
-	defaultEnv = map[string]string{
-		"PORT":      "1747",
-		"HTTP_PORT": "8080",
-	}
-)
-
 type appEnv struct {
-	Port      uint16 `env:"PORT"`
-	HTTPPort  uint16 `env:"HTTP_PORT"`
+	Port      uint16 `env:"PORT,default=1747"`
+	HTTPPort  uint16 `env:"HTTP_PORT,default=8080"`
 	DebugPort uint16 `env:"DEBUG_PORT"`
 	LogEnv    pkglog.Env
 }
 
 func main() {
-	env.Main(do, &appEnv{}, defaultEnv)
+	env.Main(do, &appEnv{})
 }
 
 func do(appEnvObj interface{}) error {
